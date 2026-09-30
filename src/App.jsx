@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { PackageCheck, PenTool, TruckElectric, Building2, Music2, HeartHandshake, GraduationCap, Dumbbell, PartyPopper, Megaphone, Sparkles, ArrowUpRight } from 'lucide-react'
+import { motion, useReducedMotion, useMotionValue, useMotionTemplate, useSpring } from 'motion/react'
 import './App.css'
 
 const image = (file) => `/images/lovable-reference/${file}`
@@ -7,11 +9,11 @@ const email = 'iampulseiras@gmail.com'
 const whatsapp = (message = 'Olá! Vim pelo site da I’am Pulseiras e gostaria de solicitar um orçamento.') => `https://wa.me/${phone}?text=${encodeURIComponent(message)}`
 
 const models = [
-  { slug: 'baixo-relevo', name: 'Pulseira em baixo relevo', image: 'produto-baixo-relevo.jpg', short: 'Gravação no silicone com acabamento resistente e leitura marcante.', description: 'Um modelo clássico para destacar nomes, frases e marcas. A arte é gravada diretamente no silicone e pode receber preenchimento em outra cor.', features: ['Gravação em baixo relevo', 'Preenchimento colorido opcional', 'Texto e logotipo', 'Tamanhos adulto e infantil'], uses: 'Empresas, campanhas, eventos e academias' },
-  { slug: 'slim', name: 'Pulseira Slim', image: 'produto-slim.jpg', short: 'Mais fina e discreta, perfeita para uso prolongado.', description: 'Uma opção leve e versátil para quem quer distribuir uma lembrança que as pessoas gostem de usar no dia a dia.', features: ['Perfil fino e confortável', 'Diversas opções de cor', 'Texto e logotipo', 'Boa escolha para grandes quantidades'], uses: 'Eventos, campanhas, escolas e ações promocionais' },
-  { slug: 'silkscreen', name: 'Pulseira Silkscreen', image: 'produto-silkscreen.jpg', short: 'Impressão na superfície para artes e logotipos com detalhes.', description: 'A impressão sobre o silicone traz mais liberdade para aplicar elementos gráficos, mensagens e marcas com personalidade.', features: ['Impressão na superfície', 'Aplicação de logotipo', 'Cores da pulseira e da arte', 'Visual limpo e versátil'], uses: 'Marcas, empresas, eventos e projetos especiais' },
+  { slug: 'baixo-relevo', name: 'Pulseira em baixo relevo', image: 'produto-baixo-relevo-v2.png', short: 'Gravação no silicone com acabamento resistente e leitura marcante.', description: 'Um modelo clássico para destacar nomes, frases e marcas. A arte é gravada diretamente no silicone e pode receber preenchimento em outra cor.', features: ['Gravação em cavidade no silicone', 'Preenchimento colorido opcional', 'Texto e logotipo', 'Tamanhos adulto e infantil'], uses: 'Empresas, campanhas, eventos e academias' },
+  { slug: 'slim', name: 'Pulseira Slim', image: 'produto-slim-v2.png', short: 'Mais fina e discreta, perfeita para uso prolongado.', description: 'Uma opção leve e versátil para quem quer distribuir uma lembrança que as pessoas gostem de usar no dia a dia.', features: ['Perfil fino e confortável', 'Diversas opções de cor', 'Texto e logotipo', 'Boa escolha para grandes quantidades'], uses: 'Eventos, campanhas, escolas e ações promocionais' },
+  { slug: 'silkscreen', name: 'Pulseira Silkscreen', image: 'produto-silkscreen-v2.png', short: 'Impressão chapada na superfície, em preto ou branco.', description: 'A tinta é aplicada diretamente sobre o silicone, criando uma impressão chapada e nítida. A pulseira pode ter qualquer cor, enquanto a gravação é feita somente em preto ou branco.', features: ['Impressão chapada na superfície', 'Gravação em preto ou branco', 'Pulseira em várias cores', 'Visual limpo e versátil'], uses: 'Marcas, empresas, eventos e projetos especiais' },
   { slug: 'brasao-circular', name: 'Pulseira com brasão circular', image: 'produto-brasao.jpg', short: 'Um medalhão em relevo para colocar seu símbolo em evidência.', description: 'O detalhe circular cria um ponto de destaque para emblemas e símbolos, dando presença à identidade do seu projeto.', features: ['Brasão circular em relevo', 'Símbolo em destaque', 'Cores personalizáveis', 'Acabamento com presença'], uses: 'Instituições, eventos, igrejas e comunidades' },
-  { slug: 'entrelacada', name: 'Pulseira entrelaçada', image: 'produto-entrelacada.jpg', short: 'Duas cores trançadas em um acabamento diferente.', description: 'A composição entrelaçada combina cores e textura para criar uma peça expressiva e fácil de reconhecer.', features: ['Visual trançado', 'Combinação de duas cores', 'Texto e marca conforme a arte', 'Acabamento diferenciado'], uses: 'Eventos, campanhas e projetos de marca' },
+  { slug: 'tecido-plaquinha-pvc', name: 'Pulseira de tecido diagramável', image: 'produto-tecido-plaquinha-pvc.png', short: 'Tecido estampado com plaquinha PVC para personalizar sua identificação.', description: 'Uma pulseira de tecido confortável e ajustável, com plaquinha PVC diagramável para aplicar QR code, marca, texto ou outras informações do seu evento.', features: ['Plaquinha PVC diagramável', 'QR code, logotipo ou texto', 'Tecido estampado e confortável', 'Fecho ajustável para eventos'], uses: 'Eventos, festivais, festas, campanhas e controle de acesso' },
   { slug: 'tecido', name: 'Pulseira de tecido', image: 'produto-tecido.jpg', short: 'Impressão total com fecho para eventos e controle de acesso.', description: 'Feita para experiências que precisam unir identificação e identidade visual. A impressão acompanha a peça de ponta a ponta.', features: ['Impressão ao longo da pulseira', 'Fecho para controle de acesso', 'Arte com cores e elementos visuais', 'Ideal para eventos'], uses: 'Festivais, festas, encontros e eventos' },
 ]
 
@@ -44,7 +46,7 @@ function Button({ href, children }) { return <a className="button" href={href}>{
 function Eyebrow({ children }) { return <span className="eyebrow">{children}</span> }
 function SectionTitle({ eyebrow, title, description }) { return <div className="section-title"><div><Eyebrow>{eyebrow}</Eyebrow><h2>{title}</h2></div>{description && <p>{description}</p>}</div> }
 function Intro({ label, title, children }) { return <section className="page-intro"><Eyebrow>{label}</Eyebrow><h1>{title}</h1><p>{children}</p></section> }
-function ProductCard({ model, index }) { return <article className="product-card"><a className="product-image" href={`/pulseiras/${model.slug}/`} aria-label={`Ver ${model.name}`}><img src={image(model.image)} alt={model.name} loading={index > 2 ? 'lazy' : 'eager'} /><span className="product-index">0{index + 1}</span></a><div className="product-copy"><h3>{model.name}</h3><p>{model.short}</p><a className="text-link" href={`/pulseiras/${model.slug}/`}>Ver detalhes <Arrow /></a></div></article> }
+function ProductCard({ model, index }) { return <article className="product-card"><a className="product-image" href={`/pulseiras/${model.slug}/`} aria-label={`Ver ${model.name}`}><img src={image(`cutouts/${model.slug}.png`)} alt={model.name} width="1254" height="1254" loading={index > 2 ? 'lazy' : 'eager'} /><span className="product-index">0{index + 1}</span></a><div className="product-copy"><h3>{model.name}</h3><p>{model.short}</p><a className="text-link" href={`/pulseiras/${model.slug}/`}>Ver detalhes <Arrow /></a></div></article> }
 function ProductGrid({ limit = 6 }) { return <div className="product-grid">{models.slice(0, limit).map((model, index) => <ProductCard key={model.slug} model={model} index={index} />)}</div> }
 function CallToAction() { return <section className="closing-section"><div><Eyebrow>Vamos começar?</Eyebrow><h2>Vamos transformar sua ideia em uma pulseira?</h2><p>Conte um pouco sobre o seu projeto. A equipe ajuda você a encontrar a melhor opção.</p><Button href={whatsapp()}>Solicitar orçamento pelo WhatsApp</Button></div></section> }
 
@@ -61,30 +63,129 @@ function LineIcon({ type = 'check' }) {
   return <svg className="line-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{paths[type] || paths.check}</svg>
 }
 
+function HeroEffect({ className, href, children }) {
+  const reducedMotion = useReducedMotion()
+  const rotateX = useSpring(0, { stiffness: 180, damping: 24 })
+  const rotateY = useSpring(0, { stiffness: 180, damping: 24 })
+  const glowOpacity = useSpring(0, { stiffness: 160, damping: 24 })
+  const lightX = useMotionValue(50)
+  const lightY = useMotionValue(50)
+  const glow = useMotionTemplate`radial-gradient(380px circle at ${lightX}% ${lightY}%, rgba(255,255,255,.14), transparent 75%)`
+  const Card = href ? motion.a : motion.div
+  function reset() {
+    rotateX.set(0)
+    rotateY.set(0)
+    glowOpacity.set(0)
+  }
+  function move(event) {
+    if (reducedMotion || event.pointerType !== 'mouse') return
+    const bounds = event.currentTarget.getBoundingClientRect()
+    const x = (event.clientX - bounds.left) / bounds.width
+    const y = (event.clientY - bounds.top) / bounds.height
+    rotateX.set((.5 - y) * 3)
+    rotateY.set((x - .5) * 3)
+    lightX.set(x * 100)
+    lightY.set(y * 100)
+    glowOpacity.set(1)
+  }
+  return <Card className={`${className} hero-effect`} href={href}
+    style={reducedMotion ? undefined : { rotateX, rotateY, transformPerspective: 1000 }}
+    onPointerMove={move} onPointerLeave={reset} onPointerCancel={reset}>
+    {children}
+    <motion.span className="hero-card-glow" aria-hidden="true" style={{ background: glow, opacity: reducedMotion ? 0 : glowOpacity }} />
+  </Card>
+}
+
 function Hero() {
-  return <section className="hero" id="inicio">
+  return <><section className="hero" id="inicio">
     <div className="hero-meta"><span>Fábrica de pulseiras personalizadas</span><span>Feitas para a sua ideia</span></div>
     <div className="hero-grid">
-      <div className="hero-main"><div className="hero-copy"><Eyebrow>I'am Pulseiras / Personalizadas</Eyebrow><h1>Pulseiras do seu jeito.</h1><p>Pulseiras personalizadas para eventos, empresas, campanhas e projetos.</p><Button href={whatsapp()}>Solicitar orçamento</Button></div><div className="hero-image"><img src={image('hero-pulseiras.jpg')} alt="Pulseiras de silicone personalizadas em várias cores" fetchPriority="high" width="1408" height="1200" /></div></div>
-      <a className="color-panel" href="#personalizacao"><span>Seu projeto, suas cores</span><div><h2>Crie algo só seu.</h2><span className="panel-link">Personalização <Arrow /></span></div></a>
-      <a className="feature-panel" href="/pulseiras/baixo-relevo/"><div className="feature-image"><img src={image('produto-baixo-relevo.jpg')} alt="Pulseira em baixo relevo" /></div><div className="feature-caption"><div><span>Modelo em destaque</span><h2>Pulseira em baixo relevo</h2></div><Arrow /></div></a>
-      <div className="factory-panel"><span>Direto da fábrica</span><p>Uma pulseira para cada ideia.</p></div>
-      <a className="slim-panel" href="/pulseiras/slim/"><div className="slim-image"><img src={image('produto-slim.jpg')} alt="Pulseira Slim em cores pastel" /></div><div><span>Leve e versátil</span><h2>Pulseira Slim</h2><p>Versão fina e discreta, ideal para uso prolongado e grandes volumes.</p><strong>Ver detalhes <Arrow /></strong></div></a>
+      <HeroEffect className="hero-main">
+        <div className="hero-copy"><Eyebrow>I'am Pulseiras / Personalizadas</Eyebrow><h1>Pulseiras do seu jeito.</h1><p>Pulseiras personalizadas para eventos, empresas, campanhas e projetos.</p><Button href={whatsapp()}>Solicitar orçamento</Button></div>
+        <div className="hero-image"><img src={image('hero-pulseiras.jpg')} alt="Pulseiras de silicone personalizadas em várias cores" fetchPriority="high" width="1408" height="1200" /></div>
+      </HeroEffect>
+      <HeroEffect className="color-panel" href="#personalizacao"><span>Seu projeto, suas cores</span><div><h2>Crie algo só seu.</h2><span className="panel-link">Personalização <Arrow /></span></div></HeroEffect>
+      <HeroEffect className="feature-panel" href="/pulseiras/baixo-relevo/"><div className="feature-image"><img src={image('hero-pulseiras-pilha-v1.png')} alt="Pulseiras coloridas em baixo relevo suspensas sobre uma pilha" /></div><div className="feature-caption"><div><span>Modelo em destaque</span><h2>Pulseira em baixo relevo</h2></div><Arrow /></div></HeroEffect>
+      <HeroEffect className="factory-panel"><span>Direto da fábrica</span><p>Uma pulseira para cada ideia.</p></HeroEffect>
     </div>
-    <div className="benefit-strip"><span><LineIcon />Pedido mínimo de 50 unidades</span><span><LineIcon type="pen" />Layout desenvolvido sem custo</span><span><LineIcon type="truck" />Entrega para todo o Brasil</span></div>
+  </section>
+    <div className="benefit-strip" aria-label="Benefícios da I’am Pulseiras">
+      <div className="benefit-items">
+        <div className="benefit-item"><span className="benefit-icon"><PackageCheck aria-hidden="true" /></span><span>Pedido mínimo: <strong>50 unidades</strong></span></div>
+        <div className="benefit-item"><span className="benefit-icon"><PenTool aria-hidden="true" /></span><span>Arte e layout <strong>sem custo</strong></span></div>
+        <div className="benefit-item"><span className="benefit-icon"><TruckElectric aria-hidden="true" /></span><span>Entrega em <strong>todo o Brasil</strong></span></div>
+      </div>
+    </div>
+  </>
+}
+
+const audiences = [
+  { name: 'Empresas', detail: 'Vista a cultura da sua marca.', icon: Building2, tone: 'mint' },
+  { name: 'Eventos', detail: 'O encontro começa no pulso.', icon: Music2, tone: 'yellow' },
+  { name: 'Igrejas', detail: 'Um símbolo de conexão.', icon: HeartHandshake },
+  { name: 'Escolas', detail: 'Uma turma. Muitas histórias.', icon: GraduationCap },
+  { name: 'Academias', detail: 'Energia que veste a equipe.', icon: Dumbbell },
+  { name: 'Festas', detail: 'Leve a lembrança com você.', icon: PartyPopper },
+  { name: 'Campanhas', detail: 'Sua causa ganha presença.', icon: Megaphone },
+  { name: 'Ações promocionais', detail: 'Faça sua marca circular.', icon: Sparkles },
+]
+
+function AudienceSection() {
+  const reducedMotion = useReducedMotion()
+  const lightX = useMotionValue(50)
+  const lightY = useMotionValue(20)
+  const spotlight = useMotionTemplate`radial-gradient(550px circle at ${lightX}% ${lightY}%, rgba(104, 235, 206, .15), transparent 75%)`
+  function moveLight(event) {
+    if (reducedMotion || event.pointerType !== 'mouse') return
+    const bounds = event.currentTarget.getBoundingClientRect()
+    lightX.set((event.clientX - bounds.left) / bounds.width * 100)
+    lightY.set((event.clientY - bounds.top) / bounds.height * 100)
+  }
+  return <section className="section audience-section" aria-labelledby="audience-title">
+    <div className="audience-stage" onPointerMove={moveLight}>
+      <div className="audience-aurora" aria-hidden="true" />
+      <motion.div className="audience-spotlight" style={{ background: spotlight }} aria-hidden="true" />
+      <div className="audience-heading">
+        <div><Eyebrow>Para quem produzimos</Eyebrow><h2 id="audience-title">Pequenas ações.<br /><span>Grandes conexões.</span></h2></div>
+        <p>Tem uma galera para reunir?<br />Tem uma pulseira para isso. Escolha o seu universo e vamos criar juntos.</p>
+      </div>
+      <div className="audience-tiles">
+        {audiences.map(({ name, detail, icon: Icon, tone }, index) => <motion.a
+          key={name}
+          className={`audience-tile${tone ? ` audience-tile--${tone}` : ''}`}
+          href={whatsapp(`Olá! Gostaria de personalizar pulseiras para ${name.toLowerCase()}. Podem me ajudar?`)}
+          aria-label={`Solicitar orçamento para ${name.toLowerCase()}`}
+          whileHover={reducedMotion ? undefined : { y: -6, scale: 1.015 }}
+          whileTap={reducedMotion ? undefined : { scale: 0.98 }}
+          transition={{ type: 'spring', stiffness: 350, damping: 24 }}
+        >
+          <div className="audience-tile-top"><span className="audience-symbol"><Icon size={23} strokeWidth={1.7} aria-hidden="true" /></span><span className="audience-number">0{index + 1}</span></div>
+          <div className="audience-tile-copy"><h3>{name}</h3><p>{detail}</p></div>
+          <ArrowUpRight className="audience-go" size={19} aria-hidden="true" />
+        </motion.a>)}
+      </div>
+      <div className="audience-note"><span aria-hidden="true" /> Diferentes tribos. A mesma vontade de pertencer.</div>
+    </div>
   </section>
 }
 
 function Home() { return <>
   <Hero />
-  <section className="section" id="pulseiras"><SectionTitle eyebrow="Explore os modelos / 01—06" title="Encontre a pulseira ideal para o seu projeto" description="Cada modelo tem um acabamento e possibilidades diferentes. Nossa equipe ajuda você a escolher a melhor opção." /><ProductGrid /><div className="section-end"><a className="text-link" href="/catalogo/">Explorar o catálogo <Arrow /></a></div></section>
-  <section className="section audience-section"><SectionTitle eyebrow="Para quem produzimos" title="De pequenas ações a grandes eventos" description="Uma pulseira personalizada pode reunir pessoas, identificar participantes e levar sua marca adiante." /><div className="audience-grid">{['Empresas', 'Eventos', 'Igrejas', 'Escolas', 'Academias', 'Festas', 'Campanhas', 'Ações promocionais'].map((name, index) => <div className="audience-card" key={name}><span>0{index + 1}</span><strong>{name}</strong><Arrow /></div>)}</div></section>
+  <section className="section featured-models-section" id="pulseiras">
+    <div className="featured-models-heading">
+      <div><Eyebrow>Feitas para a sua ideia</Eyebrow><h2>Uma pulseira para cada projeto.</h2></div>
+      <p>Explore os modelos em destaque. Cada um tem seu próprio acabamento e jeito de personalizar.</p>
+    </div>
+    <ProductGrid />
+    <div className="section-end"><a className="featured-models-link" href="/catalogo/">Ver todos os modelos <Arrow /></a></div>
+  </section>
+  <AudienceSection />
   <section className="section personalization-section" id="personalizacao">
     <div className="personalization-copy"><Eyebrow>Personalização</Eyebrow><h2>Sua ideia. Sua marca. Sua pulseira.</h2><p>Cores, textos, logotipos e elementos visuais podem ser personalizados de acordo com o modelo escolhido. Você conta o que precisa e nós cuidamos do resto.</p>
       <div className="personalization-options">{[['Cores', 'Escolha a cor da pulseira e do acabamento.', 'palette'], ['Textos', 'Frases, nomes, datas, sites e numerações.', 'type'], ['Logotipos', 'Sua marca aplicada conforme o modelo escolhido.', 'image'], ['Acabamentos', 'Relevo, impressão, brasão ou trançado.', 'spark']].map(([title, description, icon]) => <div key={title}><span className="option-icon"><LineIcon type={icon} /></span><h3>{title}</h3><p>{description}</p></div>)}</div>
       <div className="personalization-cta"><p>Nós desenvolvemos o layout da sua pulseira sem custo.</p><span>Você aprova a arte antes de qualquer produção.</span><Button href={whatsapp('Olá! Gostaria de criar uma pulseira personalizada e solicitar um orçamento.')}>Quero criar minha pulseira</Button></div>
     </div>
-    <div className="personalization-images"><img src={image('personalizacao-cores.jpg')} alt="Pulseiras personalizadas em várias cores" loading="lazy" /><img src={image('produto-silkscreen.jpg')} alt="Pulseira branca com logotipo impresso" loading="lazy" /><img src={image('produto-brasao.jpg')} alt="Pulseira azul com brasão circular" loading="lazy" /></div>
+    <div className="personalization-images"><img src={image('personalizacao-cores.jpg')} alt="Pulseiras personalizadas em várias cores" loading="lazy" /><img src={image('produto-silkscreen-v2.png')} alt="Pulseira colorida com impressão branca chapada" loading="lazy" /><img src={image('produto-brasao.jpg')} alt="Pulseira azul com brasão circular" loading="lazy" /></div>
   </section>
   <section className="section process-section" id="como-funciona"><SectionTitle eyebrow="Como funciona" title="Do primeiro contato às pulseiras na sua mão" /><div className="process-grid">{[['Conte sua ideia', 'Envie as informações do projeto e a quantidade desejada.', 'pen'], ['Escolha o modelo', 'A equipe ajuda a encontrar a opção mais adequada.', 'palette'], ['Aprove o layout', 'O layout personalizado é desenvolvido para aprovação.', 'check'], ['Receba suas pulseiras', 'Produção e envio para todo o Brasil.', 'truck']].map(([title, description, icon], index) => <article key={title}><div className="process-top"><span className="option-icon"><LineIcon type={icon} /></span><span>0{index + 1}</span></div><h3>{title}</h3><p>{description}</p></article>)}</div></section>
   <section className="section gallery-section" id="galeria"><SectionTitle eyebrow="Galeria" title="Pulseiras em diferentes momentos" description="Ideias de como as pulseiras podem aparecer em eventos, equipes, comunidades e no dia a dia." /><div className="gallery-grid"><img className="gallery-wide" src={image('galeria-evento.jpg')} alt="Pessoa em evento usando pulseiras coloridas" loading="lazy" /><img src={image('galeria-empresa.jpg')} alt="Equipe com pulseiras azuis" loading="lazy" /><img src={image('galeria-igreja.jpg')} alt="Pulseiras personalizadas brancas e douradas" loading="lazy" /><img src={image('galeria-academia.jpg')} alt="Pulseira preta usada durante atividade física" loading="lazy" /><img className="gallery-colors" src={image('personalizacao-cores.jpg')} alt="Variedade de cores de pulseiras personalizadas" loading="lazy" /></div></section>
