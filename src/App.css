@@ -215,4 +215,80 @@ main{width:100%;margin:0}.eyebrow{display:block;font-size:12px;line-height:18px;
 @media(max-width:767px){.budget-form{padding:24px}.budget-form-intro h3{font-size:23px}.closing-section>.closing-panel{grid-template-columns:1fr;padding:32px 25px 25px;border-radius:24px}.closing-action{justify-self:start;max-width:none}.closing-symbol{display:none}.closing-panel h2{font-size:36px}.closing-benefits{gap:16px;flex-direction:column}.closing-panel .closing-action p{max-width:360px}}
 @media(max-width:420px){.budget-form{padding:22px 18px}.budget-form-grid{grid-template-columns:1fr}.budget-form-intro{gap:10px}.budget-stamp{width:40px;height:40px;border-radius:12px}.budget-form-intro h3{font-size:21px}.closing-panel h2{font-size:31px}}
 @media(prefers-reduced-motion:reduce){.budget-form .button,.closing-panel .button{transition:none}.budget-form .button:hover,.closing-panel .button:hover{transform:none}}
+
+/* Compact opening composition for phone screens. */
+@media(max-width:767px){
+  .hero-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .hero-main{grid-column:1/-1;min-height:460px}
+  .hero-grid .color-panel{order:1;min-height:174px;padding:18px}
+  .hero-grid .factory-panel{order:2;min-height:174px;padding:18px}
+  .hero-grid .feature-panel{order:3;grid-column:1/-1;min-height:206px;height:206px;flex-direction:row}
+  .hero-grid .feature-image{width:53%;height:auto;min-height:0}
+  .hero-grid .feature-caption{flex:1;align-items:flex-end;padding:18px 16px}
+  .hero-grid .feature-caption h2{font-size:17px}
+  .hero-grid .color-panel h2{font-size:22px;line-height:1.15}
+  .hero-grid .factory-panel p{font-size:18px;line-height:1.2}
+}
+@media(max-width:479px){
+  .hero{padding-top:20px}
+  .hero-main{min-height:414px;padding:24px}
+  .hero-copy .button{margin-top:20px}
+  .hero-image{width:208px;height:208px;right:-48px;bottom:-42px;border-width:5px}
+  .hero-grid .color-panel,.hero-grid .factory-panel{min-height:156px;padding:16px}
+  .hero-grid .color-panel>span,.hero-grid .factory-panel>span{font-size:10px;line-height:14px}
+  .hero-grid .color-panel h2{font-size:20px}
+  .hero-grid .factory-panel p{font-size:16px}
+  .hero-grid .feature-panel{min-height:184px;height:184px}
+  .hero-grid .feature-caption{padding:14px}
+  .hero-grid .feature-caption h2{font-size:16px}
+}
+
+/* Tablet keeps the desktop grid, with room for the main call to action. */
+@media(min-width:768px) and (max-width:1023px){
+  .hero-main{padding:28px}
+  .hero-copy>p{max-width:70%}
+  .hero-copy .button{margin-top:18px}
+  .hero-image{width:180px;height:180px;right:-32px;bottom:-80px;border-width:4px}
+}
+
+/* Product detail images use the full product cutout without filling the entire panel. */
+.model-photo img{display:block;object-fit:contain;padding:clamp(28px,4vw,56px);background:#fff}
+
+/* Keep every catalog image in the same visual frame, regardless of the product's source dimensions. */
+.catalog-page .product-image img{position:absolute;inset:8%;width:84%;height:84%;object-fit:contain!important;object-position:center}
 @media(max-width:767px){.about-section{grid-template-columns:1fr;gap:28px}.about-intro{padding:0}.about-intro h2{font-size:31px}.budget-form{padding:22px;border-radius:18px}.budget-form-grid{grid-template-columns:1fr}.budget-form .budget-email{grid-column:auto}.footer-bottom span:last-child{text-align:left}.cta-orbit-one{right:-210px}.cta-orbit-two{left:-100px}}
+.floating-whatsapp svg{flex-shrink:0}
+@media(max-width:767px){
+  .hero-main{min-height:0!important;padding:22px 22px 28px}
+  .hero h1{font-size:clamp(28px,6vw,36px);max-width:420px;margin-block:18px}
+  .hero-copy>p{max-width:100%;font-size:14px;line-height:1.65}
+  .hero-copy .button{margin-top:20px;position:relative;z-index:2}
+  .hero-image{display:none}
+  .hero-grid .color-panel,.hero-grid .factory-panel{min-height:120px;padding:16px;gap:12px}
+  .hero-grid .color-panel h2{font-size:19px}
+  .hero-grid .factory-panel p{font-size:16px}
+  .hero-grid .feature-panel{height:150px;min-height:150px}
+  .hero-grid .feature-image{width:44%;object-fit:contain}
+  .hero-grid .feature-caption h2{font-size:16px}
+  .benefit-items{gap:12px}
+  .section-title h2{font-size:28px}
+  .product-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .product-copy{padding:14px}
+  .product-copy h3{font-size:15px;overflow-wrap:anywhere}
+  .product-copy p{font-size:12px;line-height:1.6;margin:10px 0 16px}
+  .product-copy .text-link{font-size:12px}
+  .floating-whatsapp{width:54px;height:54px;padding:0;display:flex;align-items:center;justify-content:center;border-radius:50%;bottom:calc(16px + env(safe-area-inset-bottom));right:16px;box-shadow:0 5px 18px #174e3830}
+  .floating-whatsapp>span:last-child{display:none}
+  .budget-form input,.budget-form select{font-size:16px}
+}
+.falling-bracelets{position:absolute;inset:0;overflow:hidden;background:white}
+.cookie-banner{position:fixed;left:50%;bottom:20px;z-index:40;width:min(860px,calc(100% - 48px));transform:translateX(-50%);display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:24px;padding:16px 18px;border:1px solid #dce2dc;border-radius:10px;background:#fff;color:#203d35;box-shadow:0 4px 18px #173d350a}
+.cookie-banner strong{font-family:inherit;font-size:13px;font-weight:600}
+.cookie-banner p{margin:5px 0 0;color:#62716b;font-size:12px;line-height:1.55}
+.cookie-banner a{color:#345e50;text-decoration:underline;text-underline-offset:3px}
+.cookie-actions{display:flex;gap:8px}
+.cookie-actions button{min-height:40px;padding:8px 14px;border:1px solid #d6dfd9;border-radius:6px;background:#fff;color:#294b3e;font-family:inherit;font-weight:600;font-size:12px;white-space:nowrap;cursor:pointer;transition:background .2s}
+.cookie-actions button:hover{background:#f0f5f1}
+.cookie-actions button:focus-visible,.cookie-banner a:focus-visible{outline:2px solid #278b78;outline-offset:3px}
+.cookie-actions .cookie-accept{background:#edf4ef}
+@media(max-width:767px){.cookie-banner{bottom:calc(80px + env(safe-area-inset-bottom));width:calc(100% - 24px);grid-template-columns:1fr;padding:15px;gap:12px}.cookie-actions{display:grid;grid-template-columns:1fr 1fr}.cookie-actions button{padding:0 8px;font-size:11px}}
