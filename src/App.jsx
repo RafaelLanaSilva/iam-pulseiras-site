@@ -6,6 +6,8 @@ import AnimatedGradient from './components/AnimatedGradient'
 import BraceletPalette from './components/BraceletPalette'
 import ProcessFlow from './components/ProcessFlow'
 import FallingBracelets from './components/FallingBracelets'
+import PersonalizationStudio from './components/PersonalizationStudio'
+import ModernProcessFlow from './components/ModernProcessFlow'
 
 const personalizationGradient = { preset: 'custom', color1: '#163d35', color2: '#23796b', color3: '#253e38', speed: 12, swirl: 60, swirlIterations: 6, scale: 0.7, softness: 100, proportion: 45 }
 
@@ -53,6 +55,7 @@ export const pages = {
   '/catalogo/': ['Modelos e brindes personalizados | I’am Pulseiras', 'Explore pulseiras e chaveiros personalizados para encontrar a opção ideal para o seu projeto.'],
   '/sobre/': ['Quem somos | I’am Pulseiras', 'Conheça a I’am Pulseiras e como ajudamos a transformar ideias em pulseiras personalizadas.'],
   '/contato/': ['Contato | I’am Pulseiras', 'Solicite um orçamento de pulseiras personalizadas por WhatsApp ou e-mail.'],
+  '/pulseiras-personalizadas/': ['Pulseiras personalizadas para sua marca | I’am Pulseiras', 'Pulseiras em baixo relevo e silkscreen para eventos, empresas e campanhas. Receba um orçamento personalizado.'],
   '/privacidade/': ['Política de Privacidade | I’am Pulseiras', 'Saiba como a I’am Pulseiras trata dados pessoais e preferências de cookies.'],
   '/termos/': ['Termos de Uso | I’am Pulseiras', 'Condições gerais para navegação e contato com a I’am Pulseiras.'],
   '/envio-e-entrega/': ['Envio e Entrega | I’am Pulseiras', 'Informações gerais sobre orçamento, produção, frete e entrega dos pedidos.'],
@@ -245,6 +248,142 @@ function ModelPage({ model }) { return <><section className="model-page section"
 function About() { return <><Intro label="Quem somos" title="Sua ideia ganha forma aqui.">Produzimos pulseiras personalizadas para marcas, eventos e projetos que querem criar uma conexão duradoura.</Intro><section className="section about-page"><div><img src={image('personalizacao-cores.jpg')} alt="Pulseiras em diferentes cores" /></div><div><Eyebrow>I’am Pulseiras</Eyebrow><h2>Uma pulseira pode dizer muito.</h2><p>Ela pode identificar uma equipe, marcar um evento, representar uma causa ou acompanhar uma lembrança. Ajudamos você a escolher o modelo, as cores e o acabamento para contar essa história.</p><p>Desenvolvemos o layout para aprovação antes de produzir e enviamos para todo o Brasil.</p><Button href="/catalogo/">Conhecer os modelos</Button></div></section><CallToAction /></> }
 function ContactForm() { const [status, setStatus] = useState(''); function submit(event) { event.preventDefault(); const data = new FormData(event.currentTarget); const body = `Nome: ${data.get('nome')}\nE-mail: ${data.get('email')}\n\n${data.get('mensagem')}`; window.location.href = `mailto:${email}?subject=${encodeURIComponent('Contato pelo site — I’am Pulseiras')}&body=${encodeURIComponent(body)}`; setStatus(`Continue no seu aplicativo de e-mail para enviar a mensagem. Se ele não abrir, escreva para ${email}.`) } return <form onSubmit={submit} className="contact-form"><div className="form-row"><label>Seu nome<input name="nome" autoComplete="name" placeholder="Como podemos chamar você?" required maxLength={100} /></label><label>Seu e-mail<input name="email" type="email" autoComplete="email" placeholder="voce@exemplo.com" required maxLength={200} /></label></div><label>Conte um pouco sobre sua ideia<textarea name="mensagem" placeholder="Modelo, quantidade e ocasião…" rows={5} required maxLength={3000} /></label><p className="form-note">Este formulário prepara uma mensagem no seu aplicativo de e-mail.</p><button className="button" type="submit">Continuar por e-mail <Arrow /></button><p role="status" className="form-note">{status}</p></form> }
 function Contact() { return <><Intro label="Contato" title="Vamos criar sua pulseira?">Conte o que você tem em mente. Podemos conversar sobre modelos, quantidade, cores e acabamento.</Intro><section className="section contact-page"><div className="contact-direct"><Eyebrow>Fale com a gente</Eyebrow><h2>Seu projeto começa com uma conversa.</h2><p>Prefere falar agora? Envie sua ideia pelo WhatsApp. Se quiser, também pode preparar uma mensagem por e-mail.</p><Button href={whatsapp()}>Conversar no WhatsApp</Button><div className="contact-details"><a href="tel:+5519994024138">(19) 99402-4138</a><a href={`mailto:${email}`}>{email}</a></div></div><ContactForm /></section></> }
+function CustomBraceletsLanding() {
+  const featuredModels = [
+    ...['baixo-relevo', 'silkscreen', 'slim'].map((slug) => ({ ...models.find((m) => m.slug === slug), photo: `cutouts/${slug}.png` })),
+    { name: 'Pulseira com QR Code', short: 'Sua marca e informações digitais em uma pulseira de tecido com plaquinha personalizável.', photo: 'cutouts/tecido-plaquinha-pvc.png' },
+    { name: 'Pulseira com RFID', short: 'Identificação por aproximação para conectar sua pulseira a experiências digitais.', photo: 'produto-pulseira-nfc-ajustavel-transparente-v1.png' },
+    { ...models.find((m) => m.slug === 'tecido'), photo: 'cutouts/tecido.png' },
+  ]
+  const landingFaq = [
+    ['Qual é a quantidade mínima?', 'O pedido mínimo é de 50 unidades. Conte a quantidade que você precisa ao solicitar o orçamento.'],
+    ['Posso colocar minha logomarca?', 'Sim. Podemos aplicar texto, logotipo e outros elementos conforme o modelo e o acabamento escolhidos.'],
+    ['Vocês fazem o layout?', 'Sim. Nossa equipe prepara o layout sem custo para você aprovar antes da produção.'],
+    ['Quanto tempo leva para produzir?', 'O prazo depende do modelo, da quantidade e da aprovação da arte. Informamos a previsão junto com o orçamento.'],
+    ['Vocês entregam para todo o Brasil?', 'Sim. Enviamos pedidos para todo o Brasil. O frete e o prazo são informados no orçamento.'],
+  ]
+  return <div className="lp">
+
+    {/* ── Hero ── */}
+    <section className="lp-hero">
+      <div className="lp-hero-inner">
+        <div className="lp-hero-copy">
+          <span className="lp-badge"><Sparkles size={14} /> Pulseiras de silicone personalizadas</span>
+          <h1>Sua marca.<br />No pulso de<br />quem importa.</h1>
+          <p>Pulseiras de silicone personalizadas para eventos, empresas, campanhas e projetos. Escolha o modelo, aprove a arte e receba em todo o Brasil.</p>
+          <div className="lp-hero-actions">
+            <a className="lp-btn-primary" href="#orcamento"><Send size={17} /> Solicitar orçamento <ArrowUpRight size={18} /></a>
+            <a className="lp-btn-ghost" href="#modelos">Conhecer os modelos <ArrowUpRight size={16} /></a>
+          </div>
+        </div>
+        <div className="lp-hero-visual">
+          <div className="lp-hero-img-wrap">
+            <img src={image('hero-pulseiras-transparente-v1.png')} alt="Pulseiras de silicone personalizadas em várias cores" width="1036" height="1450" fetchPriority="high" />
+          </div>
+        </div>
+          <div className="lp-hero-floating-cards">
+            <div className="lp-float-card lp-float-card--1"><PackageCheck size={18} /><span>Pedido mínimo<strong>50 unidades</strong></span></div>
+            <div className="lp-float-card lp-float-card--2"><PenTool size={18} /><span>Layout<strong>sem custo</strong></span></div>
+            <div className="lp-float-card lp-float-card--3"><TruckElectric size={18} /><span>Entrega em<strong>todo o Brasil</strong></span></div>
+          </div>
+      </div>
+    </section>
+
+    {/* ── Trust Strip ── */}
+    <section className="lp-trust">
+      <div className="lp-trust-inner">
+        {[['Direto da fábrica', 'Preço justo e sem intermediários.'], ['Arte e layout grátis', 'Você aprova antes de produzir.'], ['Envio nacional', 'Para todas as regiões do Brasil.'], ['Atendimento humanizado', 'Equipe pronta pelo WhatsApp.']].map(([title, desc]) =>
+          <div key={title} className="lp-trust-item"><LineIcon type="check" /><div><strong>{title}</strong><span>{desc}</span></div></div>
+        )}
+      </div>
+    </section>
+
+    {/* ── Products ── */}
+    <section className="lp-products" id="modelos">
+      <div className="lp-section-header">
+        <Eyebrow>Modelos em destaque</Eyebrow>
+        <h2>Um acabamento para cada ideia.</h2>
+        <p>Escolha o modelo que mais combina com o seu projeto. Cada um tem um acabamento diferente e pode ser personalizado com cores, textos e logotipos.</p>
+      </div>
+      <div className="lp-product-grid">
+        {featuredModels.map((m, i) =>
+          <article key={m.name} className={`lp-product-card${m.name.includes('RFID') ? ' lp-product-card--rfid' : ''}`}>
+            <div className="lp-product-img"><img src={image(m.photo)} alt={m.name} loading={i > 2 ? 'lazy' : 'eager'} /></div>
+            <div className="lp-product-body">
+              <h3>{m.name}</h3>
+              <p>{m.short}</p>
+            </div>
+          </article>
+        )}
+      </div>
+      <div className="lp-products-cta"><a className="lp-btn-primary" href="#orcamento"><Send size={17} /> Solicitar orçamento <ArrowUpRight size={18} /></a></div>
+    </section>
+
+    {/* ── Personalization Studio ── */}
+    <PersonalizationStudio whatsappUrl={whatsapp('Olá! Estava navegando no estúdio de personalização do site da I’am Pulseiras e gostaria de solicitar uma prévia gratuita da minha pulseira. ✨')} />
+
+    {/* ── How It Works ── */}
+    <ModernProcessFlow whatsappUrl={whatsapp('Olá! Gostaria de entender mais sobre o processo e solicitar um orçamento de pulseiras personalizadas. ✨')} />
+
+    {/* ── For whom ── */}
+    <section className="lp-audiences">
+      <div className="lp-section-header">
+        <Eyebrow>Para quem é</Eyebrow>
+        <h2>Uma pulseira para cada universo.</h2>
+      </div>
+      <div className="lp-audience-grid">
+        {[{ name: 'Empresas', desc: 'Endomarketing, brindes e cultura.', Icon: Building2 }, { name: 'Eventos', desc: 'Credenciamento e identificação.', Icon: Music2 }, { name: 'Igrejas', desc: 'Retiros, encontros e comunidades.', Icon: HeartHandshake }, { name: 'Escolas', desc: 'Formaturas, turmas e projetos.', Icon: GraduationCap }, { name: 'Academias', desc: 'Planos, equipes e desafios.', Icon: Dumbbell }, { name: 'Campanhas', desc: 'Causas, ações e conscientização.', Icon: Megaphone }].map(({ name, desc, Icon }) =>
+          <div key={name} className="lp-audience-item"><Icon size={22} strokeWidth={1.7} /><h3>{name}</h3><p>{desc}</p></div>
+        )}
+      </div>
+    </section>
+
+    {/* ── FAQ ── */}
+    <section className="lp-faq">
+      <div className="lp-faq-inner">
+        <div className="lp-faq-copy">
+          <Eyebrow>Dúvidas frequentes</Eyebrow>
+          <h2>O que costumam nos perguntar.</h2>
+          <p>Não encontrou? <a href={whatsapp('Olá! Tenho uma dúvida sobre pulseiras personalizadas.')}>Fale com a equipe</a>.</p>
+        </div>
+        <div className="lp-faq-list">{landingFaq.map(([q, a]) => <details key={q}><summary>{q}<span aria-hidden="true">+</span></summary><p>{a}</p></details>)}</div>
+      </div>
+    </section>
+
+    {/* ── Budget Form ── */}
+    <section className="lp-form" id="orcamento">
+      <div className="lp-form-inner">
+        <div className="lp-form-copy">
+          <Eyebrow>Solicitar orçamento</Eyebrow>
+          <h2>Seu projeto começa aqui.</h2>
+          <p>Informe o modelo e a quantidade. A equipe retorna com as melhores condições para a sua marca.</p>
+          <div className="lp-form-extras">
+            <div><PackageCheck size={18} /><span>Pedido mínimo: 50 unidades</span></div>
+            <div><PenTool size={18} /><span>Layout desenvolvido sem custo</span></div>
+            <div><Send size={18} /><span>Resposta rápida pelo WhatsApp</span></div>
+          </div>
+        </div>
+        <BudgetForm />
+      </div>
+    </section>
+
+    {/* ── Closing CTA ── */}
+    <section className="lp-closing">
+      <AnimatedGradient config={{ preset: 'custom', color1: '#0c2e28', color2: '#1a6358', color3: '#0f3a30', speed: 10, swirl: 55, swirlIterations: 6, scale: 0.7, softness: 100, proportion: 45 }} />
+      <div className="lp-closing-inner">
+        <Eyebrow>Pronto para criar?</Eyebrow>
+        <h2>Uma pulseira simples pode criar<br />uma <em>grande conexão.</em></h2>
+        <p>Da primeira conversa ao último detalhe, a gente cria com você.</p>
+        <div className="lp-closing-actions">
+          <a className="lp-btn-primary lp-btn-primary--light" href={whatsapp()}><Send size={17} /> Conversar no WhatsApp <ArrowUpRight size={18} /></a>
+          <a className="lp-btn-ghost" href="#orcamento">Preencher formulário <ArrowUpRight size={16} /></a>
+        </div>
+        <div className="lp-closing-benefits"><span><PenTool size={15} /> Layout sem custo</span><span><PackageCheck size={15} /> A partir de 50 un.</span><span><TruckElectric size={15} /> Todo o Brasil</span></div>
+      </div>
+    </section>
+  </div> }
+export { CustomBraceletsLanding }
+
 const policyPages = {
   '/privacidade/': {
     title: 'Política de Privacidade',

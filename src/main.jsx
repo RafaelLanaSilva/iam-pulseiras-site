@@ -1,12 +1,14 @@
 import { StrictMode } from 'react'
 import { createRoot, hydrateRoot } from 'react-dom/client'
 import './index.css'
-import App from './App.jsx'
+import App, { CustomBraceletsLanding } from './App.jsx'
 
 const root = document.getElementById('root')
 const app = (
   <StrictMode>
-    <App path={window.location.pathname} />
+    {window.location.pathname === '/pulseiras-personalizadas/'
+      ? <CustomBraceletsLanding />
+      : <App path={window.location.pathname} />}
   </StrictMode>
 )
 if (root.hasChildNodes()) hydrateRoot(root, app)

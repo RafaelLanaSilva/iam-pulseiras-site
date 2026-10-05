@@ -1,0 +1,1093 @@
+/* ── Personalization Studio ── */
+
+.pz-studio {
+  position: relative;
+  background: radial-gradient(circle at 80% 20%, rgba(39, 199, 194, 0.08) 0%, transparent 50%),
+              radial-gradient(circle at 10% 80%, rgba(23, 61, 53, 0.4) 0%, transparent 60%),
+              #133830;
+  color: #f5f3ee;
+  padding: 96px 0;
+  overflow: hidden;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.pz-studio-inner {
+  max-width: 1260px;
+  margin: 0 auto;
+  padding: 0 var(--page-gutter, 32px);
+  position: relative;
+  z-index: 2;
+}
+
+/* Header */
+.pz-studio-header {
+  max-width: 680px;
+  margin-bottom: 48px;
+}
+
+.pz-studio-header .eyebrow {
+  color: #7ce1d1;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.pz-studio-header h2 {
+  font-family: Syne, Arial, sans-serif;
+  font-size: clamp(32px, 4vw, 46px);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.035em;
+  color: #ffffff;
+  margin: 0 0 16px;
+}
+
+.pz-studio-header h2 em {
+  font-style: normal;
+  color: #7ce1d1;
+  position: relative;
+}
+
+.pz-studio-header p {
+  font-size: 17px;
+  line-height: 1.65;
+  color: #b3cbbf;
+  margin: 0;
+}
+
+/* Main Grid: Left Tabs / Right Showcase */
+.pz-studio-layout {
+  display: grid;
+  grid-template-columns: 420px 1fr;
+  gap: 36px;
+  align-items: stretch;
+}
+
+/* ── Left Pillar Cards (Tabs) ── */
+.pz-tabs-column {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.pz-tab-card {
+  position: relative;
+  width: 100%;
+  text-align: left;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 18px;
+  padding: 20px 22px;
+  color: #f5f3ee;
+  cursor: pointer;
+  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  outline: none;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.pz-tab-card:hover {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(255, 255, 255, 0.18);
+  transform: translateY(-2px);
+}
+
+.pz-tab-card.is-active {
+  background: linear-gradient(135deg, rgba(39, 199, 194, 0.12) 0%, rgba(20, 56, 49, 0.7) 100%);
+  border-color: rgba(124, 225, 209, 0.45);
+  box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.45),
+              inset 0 1px 0 rgba(255, 255, 255, 0.15),
+              0 0 24px rgba(39, 199, 194, 0.15);
+  transform: translateY(-2px);
+}
+
+.pz-tab-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.pz-tab-icon-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.pz-tab-icon-wrap {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  background: rgba(124, 225, 209, 0.12);
+  color: #7ce1d1;
+  border: 1px solid rgba(124, 225, 209, 0.2);
+  transition: all 0.25s ease;
+  flex-shrink: 0;
+}
+
+.pz-tab-card.is-active .pz-tab-icon-wrap {
+  background: #7ce1d1;
+  color: #0c2b23;
+  border-color: #7ce1d1;
+  box-shadow: 0 4px 12px rgba(124, 225, 209, 0.35);
+}
+
+.pz-tab-card h3 {
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: #ffffff;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pz-tab-badge {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #a7dfd2;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  white-space: nowrap;
+}
+
+.pz-tab-card.is-active .pz-tab-badge {
+  background: rgba(124, 225, 209, 0.2);
+  color: #7ce1d1;
+  border-color: rgba(124, 225, 209, 0.35);
+}
+
+.pz-tab-desc {
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: #a4beaf;
+  margin: 2px 0 0 54px;
+}
+
+.pz-tab-card.is-active .pz-tab-desc {
+  color: #e2f1ec;
+}
+
+.pz-tab-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #7ce1d1;
+  margin-top: 6px;
+  margin-left: 54px;
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: all 0.25s ease;
+}
+
+.pz-tab-card.is-active .pz-tab-indicator {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ── Right Stage (Showcase Display) ── */
+.pz-stage {
+  position: relative;
+  border-radius: 26px;
+  background: linear-gradient(180deg, rgba(16, 44, 38, 0.85) 0%, rgba(9, 27, 23, 0.95) 100%);
+  border: 1px solid rgba(124, 225, 209, 0.22);
+  box-shadow: 0 24px 60px -12px rgba(0, 0, 0, 0.55),
+              inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 540px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* Stage Lighting Effects */
+.pz-stage-glow {
+  position: absolute;
+  top: -120px;
+  right: -80px;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(39, 199, 194, 0.18) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Stage Top Bar */
+.pz-stage-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 26px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.02);
+  position: relative;
+  z-index: 2;
+}
+
+.pz-stage-mode {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #7ce1d1;
+}
+
+.pz-stage-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #7ce1d1;
+  box-shadow: 0 0 10px #7ce1d1;
+  animation: pz-pulse-dot 2s infinite;
+}
+
+@keyframes pz-pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.85); }
+}
+
+.pz-stage-status {
+  font-size: 11.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #9cb5ac;
+  background: rgba(255, 255, 255, 0.06);
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Stage Body Canvas */
+.pz-stage-body {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 32px 28px;
+  z-index: 2;
+}
+
+/* ── Mode 1: Cores ── */
+.pz-cores-view {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.pz-cores-hero-wrap {
+  width: 100%;
+  max-width: 600px;
+  position: relative;
+  border-radius: 20px;
+  padding: 24px 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pz-cores-hero-img {
+  width: 100%;
+  max-height: 240px;
+  object-fit: contain;
+  filter: drop-shadow(0 14px 24px rgba(0, 0, 0, 0.55));
+  transition: transform 0.3s ease;
+}
+
+.pz-cores-hero-wrap:hover .pz-cores-hero-img {
+  transform: scale(1.02);
+}
+
+.pz-swatches-panel {
+  width: 100%;
+  max-width: 600px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 16px 20px;
+}
+
+.pz-swatches-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.pz-swatches-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pz-swatches-pantone {
+  font-size: 11.5px;
+  color: #7ce1d1;
+  font-family: monospace;
+  background: rgba(124, 225, 209, 0.1);
+  padding: 3px 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(124, 225, 209, 0.2);
+}
+
+.pz-swatches-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.pz-swatch-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  padding: 0;
+  outline: none;
+}
+
+.pz-swatch-btn:hover {
+  transform: scale(1.18);
+  border-color: #ffffff;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+}
+
+.pz-swatch-btn.is-selected {
+  transform: scale(1.24);
+  border-color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(124, 225, 209, 0.5), 0 6px 16px rgba(0, 0, 0, 0.5);
+}
+
+.pz-cores-note {
+  font-size: 12.5px;
+  color: #9cb5ac;
+  text-align: center;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+/* ── Mode 2: Textos (Live Interactive Engraver) ── */
+.pz-textos-view {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Live Silicone Wristband Mockup */
+.pz-wristband-stage {
+  position: relative;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  padding: 24px 22px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 0 35px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+  gap: 14px;
+}
+
+.pz-wristband-header {
+  width: 100%;
+  max-width: 540px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #7ce1d1;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+
+.pz-wristband-mock {
+  position: relative;
+  width: 100%;
+  max-width: 540px;
+  height: 56px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 28px;
+  transition: background-color 0.28s ease, border-color 0.28s ease;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 10px 24px -6px rgba(0, 0, 0, 0.5),
+              inset 0 1px 0 rgba(255, 255, 255, 0.22),
+              inset 0 -1px 2px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+
+/* Subtle, minimalist matte highlight on the top edge */
+.pz-wristband-mock::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.25);
+  pointer-events: none;
+}
+
+/* Engraved Text on Mockup - smaller, refined, minimalist */
+.pz-engraved-text {
+  font-family: 'Plus Jakarta Sans', Syne, Arial, sans-serif;
+  font-weight: 700;
+  font-size: clamp(13px, 1.8vw, 15px);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  position: relative;
+  z-index: 2;
+  transition: all 0.22s ease;
+}
+
+/* Style variants for engraved text */
+.pz-engraved-text.style-debossed-white {
+  color: #ffffff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+}
+
+.pz-engraved-text.style-debossed-dark {
+  color: #16181b;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.22);
+}
+
+.pz-engraved-text.style-debossed-pure {
+  color: rgba(0, 0, 0, 0.32);
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.25),
+               0 -1px 1px rgba(0, 0, 0, 0.45);
+}
+
+/* Text Input & Controls */
+.pz-text-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pz-text-input-wrap {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 14px;
+  padding: 4px 6px 4px 16px;
+  transition: all 0.2s ease;
+}
+
+.pz-text-input-wrap:focus-within {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: #7ce1d1;
+  box-shadow: 0 0 0 3px rgba(124, 225, 209, 0.2);
+}
+
+.pz-text-input-wrap input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 600;
+  outline: none;
+  padding: 8px 0;
+  min-width: 0;
+}
+
+.pz-text-input-wrap input::placeholder {
+  color: #71877e;
+}
+
+.pz-text-presets {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.pz-text-preset-btn {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 5px 10px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #a7dfd2;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.pz-text-preset-btn:hover {
+  background: rgba(124, 225, 209, 0.15);
+  color: #ffffff;
+  border-color: rgba(124, 225, 209, 0.35);
+}
+
+/* Control Pills for Color & Engraving */
+.pz-options-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 4px;
+  flex-wrap: wrap;
+}
+
+.pz-option-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pz-option-group span {
+  font-size: 12px;
+  color: #8fa79d;
+  font-weight: 600;
+}
+
+.pz-mini-color-btn {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.2s ease;
+}
+
+.pz-mini-color-btn.is-active {
+  transform: scale(1.25);
+  border-color: #ffffff;
+  box-shadow: 0 0 0 2px #7ce1d1;
+}
+
+.pz-style-toggle-btn {
+  font-size: 11.5px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  color: #9cb5ac;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.pz-style-toggle-btn.is-active {
+  background: #7ce1d1;
+  color: #0c2b23;
+  border-color: #7ce1d1;
+}
+
+/* ── Mode 3: Logotipos ── */
+.pz-logotipos-view {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.pz-logo-selector {
+  display: flex;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.04);
+  padding: 4px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.pz-logo-type-btn {
+  flex: 1;
+  padding: 10px 14px;
+  border-radius: 9px;
+  border: none;
+  background: transparent;
+  color: #9cb5ac;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.pz-logo-type-btn.is-active {
+  background: rgba(124, 225, 209, 0.18);
+  color: #7ce1d1;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+.pz-logo-showcase-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 20px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.35);
+}
+
+.pz-logo-img-wrap {
+  width: 100%;
+  height: 200px;
+  display: grid;
+  place-items: center;
+}
+
+.pz-logo-img {
+  max-width: 90%;
+  max-height: 180px;
+  object-fit: contain;
+  filter: drop-shadow(0 14px 20px rgba(0, 0, 0, 0.5));
+  transition: transform 0.3s ease;
+}
+
+.pz-logo-showcase-card:hover .pz-logo-img {
+  transform: scale(1.04);
+}
+
+.pz-logo-details {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.pz-logo-benefit {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: #b0c9be;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.pz-logo-benefit svg {
+  color: #7ce1d1;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* ── Mode 4: Tecnologia (NFC & QR Code) ── */
+.pz-tecnologia-view {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.pz-nfc-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 20px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: inset 0 0 35px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+}
+
+.pz-nfc-visual-wrap {
+  position: relative;
+  width: 100%;
+  height: 240px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pz-nfc-img {
+  max-width: 100%;
+  max-height: 225px;
+  object-fit: contain;
+  filter: drop-shadow(0 14px 22px rgba(0, 0, 0, 0.5));
+  position: relative;
+  z-index: 2;
+}
+
+/* Radar pulse animation around chip */
+.pz-nfc-radar {
+  position: absolute;
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background: rgba(124, 225, 209, 0.2);
+  border: 2px solid #7ce1d1;
+  z-index: 1;
+  animation: pz-radar 2s infinite;
+  pointer-events: none;
+}
+
+@keyframes pz-radar {
+  0% { transform: scale(0.6); opacity: 0.9; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
+/* Simulated Smartphone Notification Pop-up */
+.pz-nfc-notification {
+  position: absolute;
+  top: 14px;
+  left: 20px;
+  right: 20px;
+  background: rgba(15, 38, 33, 0.92);
+  border: 1px solid rgba(124, 225, 209, 0.55);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.6), 0 0 20px rgba(124, 225, 209, 0.2);
+  border-radius: 14px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 10;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  animation: pz-slide-down 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes pz-slide-down {
+  from { opacity: 0; transform: translateY(-12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.pz-nfc-notif-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: #7ce1d1;
+  color: #0c2b23;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.pz-nfc-notif-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.pz-nfc-notif-text strong {
+  font-size: 13px;
+  color: #ffffff;
+}
+
+.pz-nfc-notif-text span {
+  font-size: 11px;
+  color: #a7dfd2;
+}
+
+.pz-nfc-action-btn {
+  margin-top: 16px;
+  background: linear-gradient(135deg, #7ce1d1 0%, #27c7c2 100%);
+  color: #0c2b23;
+  border: none;
+  font-size: 13.5px;
+  font-weight: 700;
+  padding: 10px 22px;
+  border-radius: 12px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+  box-shadow: 0 6px 16px rgba(39, 199, 194, 0.3);
+}
+
+.pz-nfc-action-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(39, 199, 194, 0.45);
+}
+
+.pz-nfc-tags {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.pz-nfc-tag-item {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 10px;
+  padding: 8px 10px;
+  text-align: center;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #b3cec2;
+}
+
+/* ── Stage Bottom Footer ── */
+.pz-stage-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 26px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.02);
+  position: relative;
+  z-index: 2;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.pz-stage-badge-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #a4beaf;
+}
+
+.pz-stage-badge-item svg {
+  color: #7ce1d1;
+}
+
+/* ── Section Bottom Banner (CTA & Guarantee) ── */
+.pz-bottom-banner {
+  margin-top: 48px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(39, 199, 194, 0.08) 100%);
+  border: 1px solid rgba(124, 225, 209, 0.22);
+  border-radius: 20px;
+  padding: 24px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.pz-bottom-banner-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.pz-bottom-banner-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: rgba(124, 225, 209, 0.15);
+  color: #7ce1d1;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  border: 1px solid rgba(124, 225, 209, 0.3);
+}
+
+.pz-bottom-banner-text h4 {
+  font-size: 17px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 4px;
+}
+
+.pz-bottom-banner-text p {
+  font-size: 13.5px;
+  color: #a4beaf;
+  margin: 0;
+}
+
+.pz-bottom-banner-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #7ce1d1;
+  color: #092720;
+  font-weight: 700;
+  font-size: 14.5px;
+  padding: 13px 24px;
+  border-radius: 12px;
+  white-space: nowrap;
+  transition: all 0.22s ease;
+  box-shadow: 0 6px 20px rgba(124, 225, 209, 0.3);
+  text-decoration: none;
+}
+
+.pz-bottom-banner-btn:hover {
+  background: #96ecd0;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 26px rgba(124, 225, 209, 0.45);
+}
+
+/* ── Responsive Rules ── */
+@media (max-width: 1024px) {
+  .pz-studio-layout {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .pz-tabs-column {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+
+  .pz-tab-desc {
+    display: none;
+  }
+
+  .pz-tab-indicator {
+    display: none;
+  }
+
+  .pz-stage {
+    min-height: 480px;
+  }
+}
+
+@media (max-width: 768px) {
+  .pz-studio {
+    padding: 60px 0;
+  }
+
+  .pz-tabs-column {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+
+  .pz-tab-card {
+    padding: 12px 10px;
+    align-items: center;
+    text-align: center;
+  }
+
+  .pz-tab-card-top {
+    flex-direction: column;
+    gap: 6px;
+    align-items: center;
+  }
+
+  .pz-tab-icon-title {
+    flex-direction: column;
+    gap: 6px;
+    align-items: center;
+  }
+
+  .pz-tab-icon-wrap {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+  }
+
+  .pz-tab-card h3 {
+    font-size: 13px;
+  }
+
+  .pz-tab-badge {
+    display: none;
+  }
+
+  .pz-stage {
+    min-height: auto;
+  }
+
+  .pz-stage-body {
+    padding: 20px 16px;
+  }
+
+  .pz-bottom-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+  }
+
+  .pz-bottom-banner-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .pz-nfc-tags {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .pz-tabs-column {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .pz-tab-card {
+    align-items: flex-start;
+    text-align: left;
+    padding: 14px 16px;
+  }
+
+  .pz-tab-card-top {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .pz-tab-icon-title {
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .pz-tab-desc {
+    display: block;
+    font-size: 12px;
+    margin-left: 46px;
+  }
+}
