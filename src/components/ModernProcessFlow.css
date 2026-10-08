@@ -13,7 +13,7 @@
 .proc-inner {
   max-width: 1260px;
   margin: 0 auto;
-  padding: 0 var(--page-gutter, 32px);
+  padding: 0 var(--lp-gutter, clamp(20px, 4vw, 64px));
   position: relative;
   z-index: 2;
 }
@@ -62,7 +62,7 @@
 /* Steps Grid */
 .proc-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 22px;
   position: relative;
 }

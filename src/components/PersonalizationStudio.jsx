@@ -29,16 +29,8 @@ const SWATCHES = [
 
 const TABS = [
   {
-    id: 'cores',
-    title: 'Cores',
-    subtitle: 'Paleta ilimitada & Pantone®',
-    shortDesc: 'Escolha a cor da pulseira e da gravação. Mais de 20 cores de catálogo e código Pantone sob medida.',
-    Icon: Palette,
-    badge: '11+ cores em estoque',
-  },
-  {
     id: 'textos',
-    title: 'Textos',
+    title: 'Textos e cores',
     subtitle: 'Frases, nomes e datas',
     shortDesc: 'Frases inspiradoras, nomes de eventos, numeração sequencial e datas gravadas em baixo relevo.',
     Icon: Type,
@@ -64,18 +56,18 @@ const TEXT_PRESETS = [
 ]
 
 const MINI_COLORS = [
-  { name: 'Turquesa', hex: '#00B6E6' },
+  { name: 'Azul', hex: '#1962D0' },
   { name: 'Preto', hex: '#1F2023' },
-  { name: 'Coral', hex: '#FF5370' },
+  { name: 'Vermelho', hex: '#E51E28' },
   { name: 'Amarelo', hex: '#FFBF00' },
   { name: 'Branco', hex: '#FFFFFF' },
 ]
 
 export default function PersonalizationStudio({ whatsappUrl }) {
-  const [activeTab, setActiveTab] = useState('cores')
+  const [activeTab, setActiveTab] = useState('textos')
   const [selectedColorIndex, setSelectedColorIndex] = useState(5) // default Turquesa
   const [customText, setCustomText] = useState('SUA MARCA AQUI ✨')
-  const [mockColor, setMockColor] = useState('#00B6E6')
+  const [mockColor, setMockColor] = useState('#1962D0')
   const [engravingStyle, setEngravingStyle] = useState('white') // 'white', 'dark', 'pure'
   const [nfcTapped, setNfcTapped] = useState(false)
   const inputId = useId()
@@ -279,18 +271,21 @@ export default function PersonalizationStudio({ whatsappUrl }) {
 
                       {/* Options: Mini color switcher & Style toggle */}
                       <div className="pz-options-row">
-                        <div className="pz-option-group">
-                          <span>Cor do silicone:</span>
+                        <div className="pz-option-group pz-color-picker" role="group" aria-label="Cor do silicone">
+                          <span>Cor do silicone</span>
                           {MINI_COLORS.map((c) => (
                             <button
                               key={c.name}
                               type="button"
                               aria-label={`Silicone ${c.name}`}
+                              aria-pressed={mockColor === c.hex}
+                              title={c.name}
                               className={`pz-mini-color-btn${mockColor === c.hex ? ' is-active' : ''}`}
                               style={{ backgroundColor: c.hex }}
                               onClick={() => setMockColor(c.hex)}
                             />
                           ))}
+                          <strong className="pz-selected-color">{MINI_COLORS.find((c) => c.hex === mockColor)?.name}</strong>
                         </div>
 
                         <div className="pz-option-group">
@@ -318,6 +313,7 @@ export default function PersonalizationStudio({ whatsappUrl }) {
                           </button>
                         </div>
                       </div>
+                      <p className="pz-custom-color-note">Estas cores são exemplos para a prévia. Podemos reproduzir qualquer cor que você escolher. Envie sua referência ou código Pantone ao solicitar o orçamento.</p>
                     </div>
                   </motion.div>
                 )}

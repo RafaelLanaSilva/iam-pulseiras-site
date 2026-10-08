@@ -15,7 +15,7 @@
 .pz-studio-inner {
   max-width: 1260px;
   margin: 0 auto;
-  padding: 0 var(--page-gutter, 32px);
+  padding: 0 var(--lp-gutter, clamp(20px, 4vw, 64px));
   position: relative;
   z-index: 2;
 }
@@ -64,7 +64,7 @@
 /* Main Grid: Left Tabs / Right Showcase */
 .pz-studio-layout {
   display: grid;
-  grid-template-columns: 420px 1fr;
+  grid-template-columns: minmax(280px, 0.8fr) minmax(0, 1.2fr);
   gap: 36px;
   align-items: stretch;
 }
@@ -286,6 +286,24 @@
   justify-content: center;
   padding: 32px 28px;
   z-index: 2;
+}
+
+/* Desktop: tabs above the preview avoid an empty sidebar. */
+@media (min-width: 1025px) {
+  .pz-studio-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+  }
+
+  .pz-tabs-column {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+  }
+
+  .pz-textos-view {
+    max-width: 820px;
+  }
 }
 
 /* ── Mode 1: Cores ── */
@@ -582,7 +600,14 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  flex-wrap: wrap;
 }
+
+.pz-color-picker {width:100%;padding:16px;border:1px solid #7ce1d130;border-radius:12px;background:#ffffff05;gap:12px}
+.pz-color-picker > span {flex-basis:100%;font-size:14px;color:#c6ded5}
+.pz-color-picker .pz-mini-color-btn {width:32px;height:32px;flex:none}
+.pz-selected-color {margin-left:4px;font-size:14px;color:#e4f3ed}
+.pz-custom-color-note {font-size:14px;line-height:1.6;color:#b3cbbf;margin-top:14px}
 
 .pz-option-group span {
   font-size: 12px;

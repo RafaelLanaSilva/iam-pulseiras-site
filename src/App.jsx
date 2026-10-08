@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { PackageCheck, PenTool, TruckElectric, Building2, Music2, HeartHandshake, GraduationCap, Dumbbell, PartyPopper, Megaphone, Sparkles, ArrowUpRight, Send } from 'lucide-react'
 import { motion, useReducedMotion, useMotionValue, useMotionTemplate, useSpring } from 'motion/react'
 import './App.css'
@@ -248,7 +248,53 @@ function ModelPage({ model }) { return <><section className="model-page section"
 function About() { return <><Intro label="Quem somos" title="Sua ideia ganha forma aqui.">Produzimos pulseiras personalizadas para marcas, eventos e projetos que querem criar uma conexão duradoura.</Intro><section className="section about-page"><div><img src={image('personalizacao-cores.jpg')} alt="Pulseiras em diferentes cores" /></div><div><Eyebrow>I’am Pulseiras</Eyebrow><h2>Uma pulseira pode dizer muito.</h2><p>Ela pode identificar uma equipe, marcar um evento, representar uma causa ou acompanhar uma lembrança. Ajudamos você a escolher o modelo, as cores e o acabamento para contar essa história.</p><p>Desenvolvemos o layout para aprovação antes de produzir e enviamos para todo o Brasil.</p><Button href="/catalogo/">Conhecer os modelos</Button></div></section><CallToAction /></> }
 function ContactForm() { const [status, setStatus] = useState(''); function submit(event) { event.preventDefault(); const data = new FormData(event.currentTarget); const body = `Nome: ${data.get('nome')}\nE-mail: ${data.get('email')}\n\n${data.get('mensagem')}`; window.location.href = `mailto:${email}?subject=${encodeURIComponent('Contato pelo site — I’am Pulseiras')}&body=${encodeURIComponent(body)}`; setStatus(`Continue no seu aplicativo de e-mail para enviar a mensagem. Se ele não abrir, escreva para ${email}.`) } return <form onSubmit={submit} className="contact-form"><div className="form-row"><label>Seu nome<input name="nome" autoComplete="name" placeholder="Como podemos chamar você?" required maxLength={100} /></label><label>Seu e-mail<input name="email" type="email" autoComplete="email" placeholder="voce@exemplo.com" required maxLength={200} /></label></div><label>Conte um pouco sobre sua ideia<textarea name="mensagem" placeholder="Modelo, quantidade e ocasião…" rows={5} required maxLength={3000} /></label><p className="form-note">Este formulário prepara uma mensagem no seu aplicativo de e-mail.</p><button className="button" type="submit">Continuar por e-mail <Arrow /></button><p role="status" className="form-note">{status}</p></form> }
 function Contact() { return <><Intro label="Contato" title="Vamos criar sua pulseira?">Conte o que você tem em mente. Podemos conversar sobre modelos, quantidade, cores e acabamento.</Intro><section className="section contact-page"><div className="contact-direct"><Eyebrow>Fale com a gente</Eyebrow><h2>Seu projeto começa com uma conversa.</h2><p>Prefere falar agora? Envie sua ideia pelo WhatsApp. Se quiser, também pode preparar uma mensagem por e-mail.</p><Button href={whatsapp()}>Conversar no WhatsApp</Button><div className="contact-details"><a href="tel:+5519994024138">(19) 99402-4138</a><a href={`mailto:${email}`}>{email}</a></div></div><ContactForm /></section></> }
+function DeveloperCredit() {
+  return <p className="developer-credit">Site desenvolvido por <a href="https://www.linkedin.com/in/rafaeldelana/" target="_blank" rel="noopener noreferrer">Rafael Lana</a></p>
+}
+
 function CustomBraceletsLanding() {
+  const landingRef = useRef(null)
+  useEffect(() => {
+    const root = landingRef.current
+    const preference = window.matchMedia('(prefers-reduced-motion: reduce)')
+    if (!root || preference.matches || typeof IntersectionObserver === 'undefined') return
+    const sections = Array.from(root.children).filter((element) => element.tagName === 'SECTION' && !element.classList.contains('lp-hero'))
+    const restore = () => sections.forEach((element) => element.classList.remove('lp-reveal-pending'))
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return
+        entry.target.classList.remove('lp-reveal-pending')
+        observer.unobserve(entry.target)
+      })
+    }, { threshold: 0, rootMargin: '0px 0px -112px 0px' })
+    sections.forEach((element) => {
+      // Keep initially visible content immediate, including on short screens.
+      if (element.getBoundingClientRect().top < window.innerHeight) return
+      element.classList.add('lp-reveal-pending')
+      observer.observe(element)
+    })
+    const handlePreference = () => {
+      if (preference.matches) {
+        observer.disconnect()
+        restore()
+      }
+    }
+    const handleFocus = (event) => {
+      const section = event.target.closest('.lp-reveal-pending')
+      if (section) {
+        section.classList.remove('lp-reveal-pending')
+        observer.unobserve(section)
+      }
+    }
+    root.addEventListener('focusin', handleFocus)
+    preference.addEventListener('change', handlePreference)
+    return () => {
+      observer.disconnect()
+      restore()
+      root.removeEventListener('focusin', handleFocus)
+      preference.removeEventListener('change', handlePreference)
+    }
+  }, [])
   const featuredModels = [
     ...['baixo-relevo', 'silkscreen', 'slim'].map((slug) => ({ ...models.find((m) => m.slug === slug), photo: `cutouts/${slug}.png` })),
     { name: 'Pulseira com QR Code', short: 'Sua marca e informações digitais em uma pulseira de tecido com plaquinha personalizável.', photo: 'cutouts/tecido-plaquinha-pvc.png' },
@@ -262,7 +308,7 @@ function CustomBraceletsLanding() {
     ['Quanto tempo leva para produzir?', 'O prazo depende do modelo, da quantidade e da aprovação da arte. Informamos a previsão junto com o orçamento.'],
     ['Vocês entregam para todo o Brasil?', 'Sim. Enviamos pedidos para todo o Brasil. O frete e o prazo são informados no orçamento.'],
   ]
-  return <div className="lp">
+  return <div className="lp" ref={landingRef}>
 
     {/* ── Hero ── */}
     <section className="lp-hero">
@@ -271,15 +317,15 @@ function CustomBraceletsLanding() {
           <span className="lp-badge"><Sparkles size={14} /> Pulseiras de silicone personalizadas</span>
           <h1>Sua marca.<br />No pulso de<br />quem importa.</h1>
           <p>Pulseiras de silicone personalizadas para eventos, empresas, campanhas e projetos. Escolha o modelo, aprove a arte e receba em todo o Brasil.</p>
-          <div className="lp-hero-actions">
-            <a className="lp-btn-primary" href="#orcamento"><Send size={17} /> Solicitar orçamento <ArrowUpRight size={18} /></a>
-            <a className="lp-btn-ghost" href="#modelos">Conhecer os modelos <ArrowUpRight size={16} /></a>
-          </div>
         </div>
         <div className="lp-hero-visual">
           <div className="lp-hero-img-wrap">
             <img src={image('hero-pulseiras-transparente-v1.png')} alt="Pulseiras de silicone personalizadas em várias cores" width="1036" height="1450" fetchPriority="high" />
           </div>
+        </div>
+        <div className="lp-hero-actions">
+          <a className="lp-btn-primary" href="#orcamento">Solicitar orçamento</a>
+          <a className="lp-btn-ghost" href="#modelos">Conhecer os modelos</a>
         </div>
           <div className="lp-hero-floating-cards">
             <div className="lp-float-card lp-float-card--1"><PackageCheck size={18} /><span>Pedido mínimo<strong>50 unidades</strong></span></div>
@@ -381,6 +427,7 @@ function CustomBraceletsLanding() {
         <div className="lp-closing-benefits"><span><PenTool size={15} /> Layout sem custo</span><span><PackageCheck size={15} /> A partir de 50 un.</span><span><TruckElectric size={15} /> Todo o Brasil</span></div>
       </div>
     </section>
+    <footer className="lp-footer"><DeveloperCredit /></footer>
   </div> }
 export { CustomBraceletsLanding }
 
@@ -423,4 +470,4 @@ const policyPages = {
 
 function Policy({ path }) { const content = policyPages[path]; return <><Intro label="Informações" title={content.title}>{content.intro}</Intro><section className="policy-content">{content.sections.map(([number, title, body]) => <section key={title}><Eyebrow>{number}</Eyebrow><h2>{title}</h2>{body}</section>)}<a className="text-link" href="/contato/">Fale com a nossa equipe <Arrow /></a></section></> }
 
-export default function App({ path = '/' }) { const [menuOpen, setMenuOpen] = useState(false); const current = path === '/' ? '/' : `${path.replace(/\/+$/, '')}/`; const model = models.find((item) => current === `/pulseiras/${item.slug}/`); return <><a className="skip-link" href="#conteudo">Pular para o conteúdo</a><header className="site-header"><div className="header-inner"><a className="brand" href="/" aria-label="I’am Pulseiras — página inicial"><img src={image('iam-logo.png')} alt="" /><span><strong>I’am Pulseiras</strong><small>PERSONALIZADAS</small></span></a><nav className={menuOpen ? 'main-nav open' : 'main-nav'} id="main-nav" aria-label="Navegação principal">{nav.map(([href, label]) => <a key={href} href={href} onClick={() => setMenuOpen(false)}>{label}</a>)}<a className="nav-mobile-cta" href={whatsapp()}>Solicitar orçamento <Arrow /></a></nav><a className="header-cta" href={whatsapp()}>Solicitar orçamento <Arrow /></a><button className="menu-toggle" aria-label={menuOpen ? 'Fechar menu' : 'Abrir menu'} aria-controls="main-nav" aria-expanded={menuOpen} onClick={() => setMenuOpen(!menuOpen)}><span aria-hidden="true">{menuOpen ? '×' : '☰'}</span></button></div></header><main id="conteudo">{current === '/' ? <Home /> : current === '/catalogo/' ? <Catalog /> : model ? <ModelPage model={model} /> : current === '/sobre/' ? <About /> : current === '/contato/' ? <Contact /> : ['/privacidade/', '/termos/', '/envio-e-entrega/'].includes(current) ? <Policy path={current} /> : <><Intro label="Página não encontrada" title="Vamos voltar ao início?">O endereço que você procura não está disponível.</Intro><div className="section"><Button href="/">Voltar ao início</Button></div></>}</main><footer className="site-footer"><div className="footer-main"><div className="footer-brand"><a className="brand" href="/"><img src={image('iam-logo.png')} alt="" /><span><strong>I’am Pulseiras</strong><small>PERSONALIZADAS</small></span></a><p>Fabricação e personalização de pulseiras para empresas, eventos e projetos.</p></div><div><h2>Explore</h2><a href="/catalogo/">Modelos</a><a href="/#personalizacao">Personalização</a><a href="/#como-funciona">Como funciona</a><a href="/sobre/">Quem somos</a><a href="/#duvidas">Dúvidas</a></div><div><h2>Informações</h2><a href="/privacidade/">Política de Privacidade</a><a href="/termos/">Termos de Uso</a><a href="/envio-e-entrega/">Envio e Entrega</a></div><div><h2>Contato</h2><a href={whatsapp()}>(19) 99402-4138</a><a href={`mailto:${email}`}>{email}</a><FooterSocial /><span className="footer-minimum">Pedido mínimo: 50 unidades</span></div></div><div className="footer-bottom"><span>Todos os direitos reservados | I’am Pulseiras – CNPJ: 45.642.987/0001-86</span><span>Av. Trompowski, nº 210, 10º Andar – Bairro Centro | CEP: 88.015-300 | Florianópolis – SC</span></div></footer><a className="floating-whatsapp" href={whatsapp()} aria-label="Falar no WhatsApp"><svg aria-hidden="true" viewBox="0 0 24 24" width="25" height="25" fill="currentColor"><path d="M20.5 3.5A11.9 11.9 0 0 0 12 0C5.4 0 0 5.4 0 12c0 2.1.6 4.2 1.6 6L0 24l6.2-1.6A12 12 0 0 0 12 24c6.6 0 12-5.4 12-12 0-3.2-1.2-6.2-3.5-8.5ZM12 22a10 10 0 0 1-5.1-1.4l-.4-.2-3.7 1 1-3.6-.3-.4A10 10 0 1 1 12 22Zm5.5-7.5c-.3-.2-1.8-.9-2.1-1s-.5-.2-.7.2c-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-1.6-.8-2.7-1.5-3.8-3.3-.3-.5.3-.5.8-1.5.1-.2 0-.4 0-.6l-1-2.2c-.2-.5-.4-.5-.7-.5h-.6c-.2 0-.6.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.3 3.1c.1.2 2.1 3.3 5.1 4.6 1.9.8 2.6.8 3.5.7.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.2-.3-.2-.7-.4Z"/></svg><span>Falar no WhatsApp</span></a></> }
+export default function App({ path = '/' }) { const [menuOpen, setMenuOpen] = useState(false); const current = path === '/' ? '/' : `${path.replace(/\/+$/, '')}/`; const model = models.find((item) => current === `/pulseiras/${item.slug}/`); return <><a className="skip-link" href="#conteudo">Pular para o conteúdo</a><header className="site-header"><div className="header-inner"><a className="brand" href="/" aria-label="I’am Pulseiras — página inicial"><img src={image('iam-logo.png')} alt="" /><span><strong>I’am Pulseiras</strong><small>PERSONALIZADAS</small></span></a><nav className={menuOpen ? 'main-nav open' : 'main-nav'} id="main-nav" aria-label="Navegação principal">{nav.map(([href, label]) => <a key={href} href={href} onClick={() => setMenuOpen(false)}>{label}</a>)}<a className="nav-mobile-cta" href={whatsapp()}>Solicitar orçamento <Arrow /></a></nav><a className="header-cta" href={whatsapp()}>Solicitar orçamento <Arrow /></a><button className="menu-toggle" aria-label={menuOpen ? 'Fechar menu' : 'Abrir menu'} aria-controls="main-nav" aria-expanded={menuOpen} onClick={() => setMenuOpen(!menuOpen)}><span aria-hidden="true">{menuOpen ? '×' : '☰'}</span></button></div></header><main id="conteudo">{current === '/' ? <Home /> : current === '/catalogo/' ? <Catalog /> : model ? <ModelPage model={model} /> : current === '/sobre/' ? <About /> : current === '/contato/' ? <Contact /> : ['/privacidade/', '/termos/', '/envio-e-entrega/'].includes(current) ? <Policy path={current} /> : <><Intro label="Página não encontrada" title="Vamos voltar ao início?">O endereço que você procura não está disponível.</Intro><div className="section"><Button href="/">Voltar ao início</Button></div></>}</main><footer className="site-footer"><div className="footer-main"><div className="footer-brand"><a className="brand" href="/"><img src={image('iam-logo.png')} alt="" /><span><strong>I’am Pulseiras</strong><small>PERSONALIZADAS</small></span></a><p>Fabricação e personalização de pulseiras para empresas, eventos e projetos.</p></div><div><h2>Explore</h2><a href="/catalogo/">Modelos</a><a href="/#personalizacao">Personalização</a><a href="/#como-funciona">Como funciona</a><a href="/sobre/">Quem somos</a><a href="/#duvidas">Dúvidas</a></div><div><h2>Informações</h2><a href="/privacidade/">Política de Privacidade</a><a href="/termos/">Termos de Uso</a><a href="/envio-e-entrega/">Envio e Entrega</a></div><div><h2>Contato</h2><a href={whatsapp()}>(19) 99402-4138</a><a href={`mailto:${email}`}>{email}</a><FooterSocial /><span className="footer-minimum">Pedido mínimo: 50 unidades</span></div></div><div className="footer-bottom"><span>Todos os direitos reservados | I’am Pulseiras – CNPJ: 45.642.987/0001-86</span><span>Av. Trompowski, nº 210, 10º Andar – Bairro Centro | CEP: 88.015-300 | Florianópolis – SC</span></div><DeveloperCredit /></footer><a className="floating-whatsapp" href={whatsapp()} aria-label="Falar no WhatsApp"><svg aria-hidden="true" viewBox="0 0 24 24" width="25" height="25" fill="currentColor"><path d="M20.5 3.5A11.9 11.9 0 0 0 12 0C5.4 0 0 5.4 0 12c0 2.1.6 4.2 1.6 6L0 24l6.2-1.6A12 12 0 0 0 12 24c6.6 0 12-5.4 12-12 0-3.2-1.2-6.2-3.5-8.5ZM12 22a10 10 0 0 1-5.1-1.4l-.4-.2-3.7 1 1-3.6-.3-.4A10 10 0 1 1 12 22Zm5.5-7.5c-.3-.2-1.8-.9-2.1-1s-.5-.2-.7.2c-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-1.6-.8-2.7-1.5-3.8-3.3-.3-.5.3-.5.8-1.5.1-.2 0-.4 0-.6l-1-2.2c-.2-.5-.4-.5-.7-.5h-.6c-.2 0-.6.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.3 3.1c.1.2 2.1 3.3 5.1 4.6 1.9.8 2.6.8 3.5.7.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.2-.3-.2-.7-.4Z"/></svg><span>Falar no WhatsApp</span></a></> }
