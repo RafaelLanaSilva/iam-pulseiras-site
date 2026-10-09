@@ -167,7 +167,7 @@ export default function PersonalizationStudio({ whatsappUrl }) {
                   >
                     <div className="pz-cores-hero-wrap">
                       <img
-                        src="/images/lovable-reference/personalizacao-cores-transparente-v1.png"
+                        src={`${import.meta.env.BASE_URL}images/lovable-reference/personalizacao-cores-transparente-v1.png`}
                         alt="Pulseiras em 11 cores personalizadas com frases inspiradoras"
                         className="pz-cores-hero-img"
                         loading="eager"
@@ -346,7 +346,7 @@ export default function PersonalizationStudio({ whatsappUrl }) {
                       <div className="pz-nfc-visual-wrap">
                         {nfcTapped && <div className="pz-nfc-radar" />}
                         <img
-                          src="/images/lovable-reference/produto-pulseira-nfc-ajustavel-transparente-v1.png"
+                          src={`${import.meta.env.BASE_URL}images/lovable-reference/produto-pulseira-nfc-ajustavel-transparente-v1.png`}
                           alt="Pulseira ajustável turquesa com tecnologia NFC inteligente"
                           className="pz-nfc-img"
                         />

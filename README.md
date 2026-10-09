@@ -6,8 +6,12 @@ Site institucional em React + Vite. A página inicial apresenta os seis modelos,
 
 - `npm run dev` inicia a prévia local.
 - `npm run lint` verifica o código.
-- `npm run build` gera a versão estática em `dist`, com 13 páginas pré-renderizadas e página 404.
+- `npm run build` gera a versão estática em `dist`, com páginas pré-renderizadas e página 404.
 - `npm run preview` abre a versão gerada.
+
+## Hospedagem
+
+A base dos caminhos é `/` por padrão, adequada a domínios servidos na raiz. Para publicar em uma subpasta, defina `BASE_PATH` durante o build, sempre com barras inicial e final (por exemplo, `/meu-site/`). O workflow do GitHub Pages deriva essa base do nome do repositório.
 
 ## Imagens
 

@@ -4,11 +4,16 @@ import './index.css'
 import App, { CustomBraceletsLanding } from './App.jsx'
 
 const root = document.getElementById('root')
+const basePath = import.meta.env.BASE_URL
+const basePrefix = basePath === '/' ? '' : basePath.replace(/\/$/, '')
+const routePath = window.location.pathname.startsWith(basePrefix)
+  ? window.location.pathname.slice(basePrefix.length) || '/'
+  : window.location.pathname
 const app = (
   <StrictMode>
-    {window.location.pathname === '/pulseiras-personalizadas/'
+    {routePath === '/pulseiras-personalizadas/'
       ? <CustomBraceletsLanding />
-      : <App path={window.location.pathname} />}
+      : <App path={routePath} />}
   </StrictMode>
 )
 if (root.hasChildNodes()) hydrateRoot(root, app)
