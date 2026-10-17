@@ -21,15 +21,19 @@ const whatsapp = (message = 'Olá! Vim pelo site da I’am Pulseiras e gostaria 
 function CookieBanner() {
   // A primeira renderização deve coincidir com o HTML pré-gerado pelo servidor.
   const [choice, setChoice] = useState(null)
+  const [preferenceLoaded, setPreferenceLoaded] = useState(false)
   useEffect(() => {
     try {
       const savedChoice = window.localStorage.getItem('iam-cookie-consent')
       if (savedChoice === 'accepted' || savedChoice === 'rejected') setChoice(savedChoice)
     } catch {
       // Sem acesso ao armazenamento, o visitante ainda pode escolher nesta página.
+    } finally {
+      setPreferenceLoaded(true)
     }
   }, [])
-  if (choice) return null
+  // Só exibir após consultar a preferência, evitando piscar em visitas seguintes.
+  if (!preferenceLoaded || choice) return null
   const save = (value) => {
     // Fechar o banner independe da disponibilidade do armazenamento ou do Google.
     setChoice(value)
