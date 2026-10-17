@@ -19,15 +19,26 @@ const email = 'iampulseiras@gmail.com'
 const whatsapp = (message = 'Olá! Vim pelo site da I’am Pulseiras e gostaria de solicitar um orçamento. ✨') => `https://wa.me/${phone}?text=${encodeURIComponent(message)}`
 
 function CookieBanner() {
-  const [choice, setChoice] = useState(() => {
-    if (typeof window === 'undefined') return null
-    try { return window.localStorage.getItem('iam-cookie-consent') } catch { return null }
-  })
+  // A primeira renderização deve coincidir com o HTML pré-gerado pelo servidor.
+  const [choice, setChoice] = useState(null)
+  useEffect(() => {
+    try {
+      const savedChoice = window.localStorage.getItem('iam-cookie-consent')
+      if (savedChoice === 'accepted' || savedChoice === 'rejected') setChoice(savedChoice)
+    } catch {
+      // Sem acesso ao armazenamento, o visitante ainda pode escolher nesta página.
+    }
+  }, [])
   if (choice) return null
   const save = (value) => {
-    try { window.localStorage.setItem('iam-cookie-consent', value) } catch {}
-    window.iamGoogleConsent?.setChoice(value)
+    // Fechar o banner independe da disponibilidade do armazenamento ou do Google.
     setChoice(value)
+    try { window.localStorage.setItem('iam-cookie-consent', value) } catch {}
+    try {
+      window.iamGoogleConsent?.setChoice(value)
+    } catch (error) {
+      console.warn('Não foi possível atualizar o consentimento do Google.', error)
+    }
   }
   return <aside className="cookie-banner" aria-label="Preferências de cookies"><div><strong>Privacidade e cookies</strong><p>Usamos cookies necessários. Com seu consentimento, ativamos a medição do Google Analytics e das conversões de anúncios. Você pode aceitar ou rejeitar cookies opcionais. Consulte nossa <a href={sitePath('/privacidade/')}>Política de Privacidade</a>.</p></div><div className="cookie-actions"><button className="cookie-reject" onClick={() => save('rejected')}>Rejeitar opcionais</button><button className="cookie-accept" onClick={() => save('accepted')}>Aceitar cookies</button></div></aside>
 }
