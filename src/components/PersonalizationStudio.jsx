@@ -402,6 +402,8 @@ export default function PersonalizationStudio({ whatsappUrl }) {
             className="pz-bottom-banner-btn"
             target="_blank"
             rel="noopener noreferrer"
+            data-iam-whatsapp-id="landing_studio_whatsapp"
+            data-iam-whatsapp-position="content"
           >
             <Send size={16} /> Quero criar minha pulseira <ArrowUpRight size={16} />
           </a>

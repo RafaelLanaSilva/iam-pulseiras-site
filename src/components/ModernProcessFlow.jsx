@@ -117,6 +117,8 @@ export default function ModernProcessFlow({ whatsappUrl }) {
             className="proc-cta-btn"
             target="_blank"
             rel="noopener noreferrer"
+            data-iam-whatsapp-id="landing_process_whatsapp"
+            data-iam-whatsapp-position="content"
           >
             <Send size={15} /> Conversar no WhatsApp <ArrowUpRight size={15} />
           </a>

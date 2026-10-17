@@ -12,6 +12,33 @@ dist
 dist-ssr
 *.local
 
+# Local Codex agent and skill configuration
+/.agents/
+/.codex/
+
+# Local GPT Sites packaging workspace and generated previews
+/.sites-runtime/
+
+# Account-specific Google Analytics, Tag Manager, and Ads notes and screenshots
+/docs/google-*.md
+/docs/iam-pulseiras-google-manager*.md
+/docs/evidencias-google/
+
+# Local credentials and private keys
+**/.env
+**/.env.*
+!**/.env.example
+!**/.env.*.example
+**/credentials*.json
+**/client_secret*.json
+**/*service-account*.json
+**/token.json
+**/secrets/
+*.pem
+*.p12
+*.pfx
+*.key
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

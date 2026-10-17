@@ -2,6 +2,10 @@ import { StrictMode } from 'react'
 import { createRoot, hydrateRoot } from 'react-dom/client'
 import './index.css'
 import App, { CustomBraceletsLanding } from './App.jsx'
+import { installWhatsAppTracking } from './google-tracking.js'
+
+// Instala uma única vez o listener delegado dos links de WhatsApp nas duas páginas.
+installWhatsAppTracking()
 
 const root = document.getElementById('root')
 const basePath = import.meta.env.BASE_URL
